@@ -1,5 +1,8 @@
 <template>
   <div @click="clickHandle">
+    <div>
+      <banner></banner>
+    </div>
     <div class="userinfo" @click="bindViewTap">
       <img
         class="userinfo-avatar"
@@ -23,7 +26,6 @@
       <category :productInfo="productInfo"></category>
     </div>
 
-
     <form class="form-container">
       <input type="text" class="form-control" :value="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
@@ -36,74 +38,72 @@
       <div class="left"></div>
       <div class="right"></div>
     </div>
-      <div>
-  {{ cart }}
-
+    <div>{{ cart }}</div>
   </div>
-  </div>
-
 </template>
 
 <script>
-import card from '@/components/card'
-import category from '@/components/category'
+import card from "@/components/card";
+import category from "@/components/category";
+import banner from "@/components/banner";
 
 export default {
-  data () {
+  data() {
     return {
-      motto: 'Just For You',
+      motto: "Just For You",
       cart: [],
       userInfo: {
-        nickName: 'mpvue',
-        avatarUrl: 'http://mpvue.com/assets/logo.png'
+        nickName: "mpvue",
+        avatarUrl: "http://mpvue.com/assets/logo.png"
       },
       productInfo: [
         {
           id: 1,
-          title: 'lorem ipsuim',
-          thumbnail: '/static/images/user.png',
-          price: '1300'
+          title: "lorem ipsuim",
+          thumbnail: "/static/images/user.png",
+          price: "1300"
         },
         {
           id: 2,
-          title: 'lorem ipsuim',
-          thumbnail: '/static/images/user.png',
-          price: '1300'
+          title: "lorem ipsuim",
+          thumbnail: "/static/images/user.png",
+          price: "1300"
         }
       ]
-    }
+    };
   },
 
   components: {
     card,
+    banner,
     category
   },
 
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
+    bindViewTap() {
+      const url = "../logs/main";
+      if (mpvuePlatform === "wx") {
+        mpvue.switchTab({ url });
       } else {
-        mpvue.navigateTo({ url })
+        mpvue.navigateTo({ url });
       }
     },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
+    clickHandle(ev) {
+      console.log("clickHandle:", ev);
       // throw {message: 'custom test'}
     },
-    goToSinglePage () {
-      mpvue.navigateTo('/pages/counter/main')
+    goToSinglePage() {
+      mpvue.navigateTo("/pages/counter/main");
     },
-    addToCart (id) {
-      this.cart.push(id)
+    addToCart(id) {
+      this.cart.push(id);
     }
   },
 
-  created () {
+  created() {
     // let app = getApp()
   }
-}
+};
 </script>
 
 <style scoped>
