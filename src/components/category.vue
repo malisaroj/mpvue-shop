@@ -4,8 +4,8 @@
       <div class="column category-col">
         <div
           class="product"
-          v-for="product in productInfo"
-          :key="product.id"
+          v-for="(product, index) in productInfo"
+          :key="product.sku"
           @click="goToSinglePage"
         >
           <img :src="product.thumbnail" alt class="category-image" />
@@ -13,7 +13,7 @@
             <div class="title">{{ product.title }}</div>
             <div class="price">${{ product.price }}</div>
           </div>
-          <button class="cart" @click="addToCart(product.id)">Add to Cart</button>
+          <button class="cart" @click="addToCart(product)">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -22,8 +22,46 @@
 
 <script>
 export default {
-  props: ['productInfo']
-}
+  data() {
+    return {
+      cart: []
+    };
+  },
+  props: ["productInfo"],
+
+  computed: {
+    totalCost() {
+      return this.cart.reduce((accum, product) => {
+        return accum + product.details.price * product.quantity;
+      }, 0);
+    }
+  },
+  methods: {
+    addToCart(product) {
+      const locationInCart = this.cart.findIndex(p => {
+        return p.details.sku === product.sku;
+      });
+      if (locationInCart === -1) {
+        this.cart.push({
+          details: product,
+          quantity: 1
+        });
+      } else {
+        this.cart[locationInCart].quantity++;
+      }
+    },
+    removeFromCart(sku) {
+      const locationInCart = this.cart.findIndex(p => {
+        return p.details.sku === sku;
+      });
+      if (this.cart[locationInCart].quantity <= 1) {
+        this.cart.splice(locationInCart, 1);
+      } else {
+        this.cart[locationInCart].quantity--;
+      }
+    }
+  }
+};
 </script>
 
 <style>
@@ -73,17 +111,12 @@ export default {
 
 .category {
   color: black;
-  font-family: 'Trebuchet MS',
-                 'Lucida Sans Unicode',
-                 'Lucida Grande',
-                 'Lucida Sans',
-                 Arial,
-                 sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-size: 30rpx;
   background-color: rgb(216, 170, 185);
   padding: 20rpx;
   border-radius: 20rpx;
   font-weight: 700;
 }
-
 </style>
