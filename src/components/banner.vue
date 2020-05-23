@@ -15,7 +15,16 @@
 export default {
    data() {
       return {
-      banner: [],
+      banner: [
+        {
+          id: 1,
+          image_url: 'https://www.cbronline.com/wp-content/uploads/2016/06/what-is-URL.jpg'
+        },
+        {
+          id: 2,
+          image_url: '/static/images/user.png'
+        }
+      ],
       }
 
     },
@@ -25,5 +34,7 @@ export default {
 </script>
 
 <style>
-
+.slide-image {
+  margin: 20rpx;
+}
 </style>
