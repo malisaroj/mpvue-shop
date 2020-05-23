@@ -1,18 +1,20 @@
 <template>
   <div @click="clickHandle">
-    <div class="userinfo" @click="bindViewTap">
-      <img
-        class="userinfo-avatar"
-        v-if="userInfo.avatarUrl"
-        :src="userInfo.avatarUrl"
-        background-size="cover"
-      />
-      <img class="userinfo-avatar" v-else src="/static/images/user.png" background-size="cover" />
+    <div class="navbar">
+      <div class="userinfo" @click="bindViewTap">
+        <img
+          class="userinfo-avatar"
+          v-if="userInfo.avatarUrl"
+          :src="userInfo.avatarUrl"
+          background-size="cover"
+        />
+        <img class="userinfo-avatar" v-else src="/static/images/user.png" background-size="cover" />
 
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
+        <div class="userinfo-nickname">
+          <card :text="userInfo.nickName"></card>
+        </div>
       </div>
-      <div class="navbar">
+      <div class="cart">
         <navbar></navbar>
       </div>
     </div>
@@ -88,7 +90,7 @@ export default {
 </script>
 
 <style scoped>
-.userinfo {
+.navbar {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -96,6 +98,12 @@ export default {
   justify-content: space-around;
 }
 
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;

@@ -31,7 +31,6 @@
 </template>
 <script>
 // Use Vuex
-import store from '../store/store';
 import { mapGetters } from 'vuex'
 export default {
   computed: {

@@ -1,30 +1,36 @@
 <template>
   <div class="nav-item is-tab">
-  <div class="field is-grouped">
-    <p class="control">
-      <router-link to='/cart' class="button is-info">
-        <span class="icon">
-          <i class="fa fa-shopping-cart"></i>
-        </span>
+    <div class="field is-grouped">
+      <div @click="goToCart">
+        <span class="icon"></span>
         <span>Checkout ({{itemsInCart}})</span>
-      </router-link>
-    </p>
+      </div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
+  methods: {
+    goToCart() {
+      const url = "../cart/main";
+      if (mpvuePlatform === "wx") {
+        mpvue.switchTab({ url });
+      } else {
+        mpvue.navigateTo({ url });
+      }
+    }
+  },
+
   computed: {
-    itemsInCart(){
+    itemsInCart() {
       let cart = this.$store.getters.cartProducts;
-      return cart.reduce((accum, item) => accum + item.quantity, 0)
+      return cart.reduce((accum, item) => accum + item.quantity, 0);
     }
   }
-}
+};
 </script>
 
 <style>
-
 </style>
