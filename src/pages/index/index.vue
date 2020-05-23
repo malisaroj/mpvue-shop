@@ -1,12 +1,5 @@
 <template>
   <div @click="clickHandle">
-    <div>
-      <navbar></navbar>
-    </div>
-
-    <div>
-      <banner></banner>
-    </div>
     <div class="userinfo" @click="bindViewTap">
       <img
         class="userinfo-avatar"
@@ -14,17 +7,18 @@
         :src="userInfo.avatarUrl"
         background-size="cover"
       />
-      <img class="userinfo-avatar" src="/static/images/user.png" background-size="cover" />
+      <img class="userinfo-avatar" v-else src="/static/images/user.png" background-size="cover" />
 
       <div class="userinfo-nickname">
         <card :text="userInfo.nickName"></card>
       </div>
+      <div class="navbar">
+        <navbar></navbar>
+      </div>
     </div>
 
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
+    <div class="banner">
+      <banner></banner>
     </div>
     <div class="product">
       <product></product>
@@ -57,7 +51,7 @@ export default {
       motto: "Just For You",
       userInfo: {
         nickName: "mpvue",
-        avatarUrl: "http://mpvue.com/assets/logo.png"
+        avatarUrl: "/static/images/user.png"
       }
     };
   },
@@ -96,8 +90,10 @@ export default {
 <style scoped>
 .userinfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  align-content: space-between;
+  justify-content: space-around;
 }
 
 .userinfo-avatar {
@@ -143,5 +139,9 @@ export default {
   width: 4.5rem;
   height: 1rem;
   background-color: green;
+}
+
+.banner {
+  margin-bottom: 50rpx;
 }
 </style>
