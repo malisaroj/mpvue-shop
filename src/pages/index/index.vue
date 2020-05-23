@@ -1,6 +1,10 @@
 <template>
   <div @click="clickHandle">
     <div>
+      <navbar></navbar>
+    </div>
+
+    <div>
       <banner></banner>
     </div>
     <div class="userinfo" @click="bindViewTap">
@@ -22,8 +26,8 @@
         <card :text="motto"></card>
       </div>
     </div>
-    <div>
-      <category :productInfo="productInfo"></category>
+    <div class="product">
+      <product></product>
     </div>
 
     <form class="form-container">
@@ -38,45 +42,31 @@
       <div class="left"></div>
       <div class="right"></div>
     </div>
-    <div>{{ cart }}</div>
   </div>
 </template>
 
 <script>
+import navbar from "@/components/navbar";
 import card from "@/components/card";
-import category from "@/components/category";
 import banner from "@/components/banner";
+import product from "@/components/product";
 
 export default {
   data() {
     return {
       motto: "Just For You",
-      cart: [],
       userInfo: {
         nickName: "mpvue",
         avatarUrl: "http://mpvue.com/assets/logo.png"
-      },
-      productInfo: [
-        {
-          id: 1,
-          title: "lorem ipsuim",
-          thumbnail: "/static/images/user.png",
-          price: "1300"
-        },
-        {
-          id: 2,
-          title: "lorem ipsuim",
-          thumbnail: "/static/images/user.png",
-          price: "1300"
-        }
-      ]
+      }
     };
   },
 
   components: {
+    navbar,
     card,
     banner,
-    category
+    product
   },
 
   methods: {
@@ -94,9 +84,6 @@ export default {
     },
     goToSinglePage() {
       mpvue.navigateTo("/pages/counter/main");
-    },
-    addToCart(id) {
-      this.cart.push(id);
     }
   },
 

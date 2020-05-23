@@ -4,14 +4,16 @@
       <div class="column category-col">
         <div
           class="product"
-          v-for="(p, index) in products"
+          v-for="(product, index) in products"
           :key="index"
           @click="goToSinglePage"
         >
-          <img :src="p.thumbnail" alt class="category-image" />
+          <img :src="product.thumbnail" alt class="category-image" />
           <div class="meta">
-            <div class="title">{{ p.name }}</div>
+            <div class="title">{{ product.name }}</div>
+            <div class="price">${{ product.price }}</div>
           </div>
+          <button @click='addToCart(product)' class='button is-info'>Add to cart</button>
         </div>
       </div>
     </div>
@@ -19,26 +21,19 @@
 </template>
 
 <script>
-// Use Vuex
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  computed: {
-    ...mapGetters({
-      products: 'allProducts'
-    }),
-    total () {
-      return this.products.reduce((total, p) => {
-        return total + p.price * p.quantity
-      }, 0)
-    }
-  },
-  methods: {
-    checkout(){
-      alert('Pay us $' + this.total)
-    }
-  }
+  name: 'app',
+  computed: mapGetters({
+    products: 'allProducts',
+    length: 'getNumberOfProducts'
+  }),
+  methods: mapActions([
+    'addToCart'
+  ])
 }
 </script>
+
 
 <style>
 /* Create four equal columns that sits next to each other */
