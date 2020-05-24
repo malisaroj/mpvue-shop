@@ -13,7 +13,7 @@
             <div class="title">{{ product.name }}</div>
             <div class="price">${{ product.price }}</div>
           </div>
-          <button @click='addToCart(product)' class='button is-info'>Add to cart</button>
+          <button @click="addToCart(product)" class="button is-info">Add to cart</button>
         </div>
       </div>
     </div>
@@ -21,17 +21,15 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'app',
+  name: "app",
   computed: mapGetters({
-    products: 'allProducts',
-    length: 'getNumberOfProducts'
+    products: "allProducts",
+    length: "getNumberOfProducts"
   }),
-  methods: mapActions([
-    'addToCart'
-  ])
-}
+  methods: mapActions(["addToCart"])
+};
 </script>
 
 

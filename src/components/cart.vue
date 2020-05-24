@@ -14,39 +14,62 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="p in products"
-        :key="p.id">
-            <td>{{ p.name }}</td>
-            <td>${{ p.price }}</td>
-            <td>{{ p.quantity }}</td>
-          </tr>
-          <tr>
-            <td><b>Total:</b></td>
-            <td></td>
-            <td><b>${{ total }}</b></td>
-          </tr>
-      </tbody></table>
-    <p><button v-show="products.length" class='button is-primary' @click='checkout'>Checkout</button></p>
+        <tr v-for="(product, index) in products" :key="index">
+          <td>{{ product.name }}</td>
+          <td>${{ product.price }}</td>
+          <td>{{ product.quantity }}</td>
+          <td><button class="button is-primary" @click="removeFromCart(product)">x</button></td>
+        </tr>
+        <tr>
+          <td>
+            <b>Total:</b>
+          </td>
+          <td></td>
+          <td>
+            <b>${{ total }}</b>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <button v-show="products.length" class="button is-primary" @click="checkout">Checkout</button>
+
+    </p>
   </div>
 </template>
 <script>
 // Use Vuex
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from "vuex";
 export default {
+  components: {
+  },
   computed: {
     ...mapGetters({
-      products: 'cartProducts'
+      products: "cartProducts"
     }),
-    total () {
+    total() {
       return this.products.reduce((total, p) => {
-        return total + p.price * p.quantity
-      }, 0)
+        return total + p.price * p.quantity;
+      }, 0);
     }
   },
   methods: {
-    checkout(){
-      alert('Pay us $' + this.total)
+    ...mapActions(["removeFromCart"]),
+    checkout() {
+      alert("Pay us $" + this.total);
     }
   }
-}
+};
 </script>
+<style scoped>
+.table {
+  width: 90%;
+}
+
+tr {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>>
